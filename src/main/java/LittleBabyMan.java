@@ -12,7 +12,7 @@ public class LittleBabyMan {
                                 "|_____|  |____/   |_|  |_|\n";
     static final String SPACER = "\n_________________________________________________________________________\n";
 
-    static final ArrayList<String> previousMessages = new ArrayList<>();
+    static final ArrayList<Task> previousMessages = new ArrayList<>();
 
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
@@ -26,8 +26,8 @@ public class LittleBabyMan {
                 break;
             }
 
-            if (!checkCommand(input)) { /// If not command, put in list
-                previousMessages.add(input);
+            if (!checkCommand(input) && !input.trim().isEmpty()) { /// If not command, put in list
+                previousMessages.add(new Task(input));
                 System.out.printf("added: %s%s", input, SPACER);
             }
         }
@@ -40,10 +40,43 @@ public class LittleBabyMan {
         if (Objects.equals(input, "list")) {
             int len = previousMessages.size();
             for (int i = 0; i < len; i++) {
-                System.out.printf("%d. %s\n", i + 1, previousMessages.get(i));
+                Task t = previousMessages.get(i);
+                printTaskMessage(i + 1, t.getMark(), t.getTask());
             }
             return true;
         }
+        if (input.length() >= 5 && Objects.equals(input.substring(0, 5).toLowerCase(), "mark ")) {
+            int n = input.charAt(5) - '0';
+            int len = previousMessages.size();
+
+            for (int i = 0; i < len; i++) {
+                Task t = previousMessages.get(i);
+                if (n == i + 1) {
+                    t.mark();
+                }
+                printTaskMessage(i + 1, t.getMark(), t.getTask());
+            }
+
+            return true;
+        }
+        if (input.length() >= 7 && Objects.equals(input.substring(0, 7).toLowerCase(), "unmark ")) {
+            int n = input.charAt(7) - '0';
+            int len = previousMessages.size();
+
+            for (int i = 0; i < len; i++) {
+                Task t = previousMessages.get(i);
+                if (n == i + 1) {
+                    t.unmark();
+                }
+                printTaskMessage(i + 1, t.getMark(), t.getTask());
+            }
+
+            return true;
+        }
         return false;
+    }
+
+    private static void printTaskMessage(int number, boolean mark, String message) {
+        System.out.printf("%d.[%s] %s\n", number, mark ? "X" : " ", message);
     }
 }
