@@ -1,7 +1,10 @@
-public class Task {
+public abstract class Task {
+
     private boolean mark;
 
     private final String task;
+
+
 
     public Task(String task) {
         this.task = task;
