@@ -1,13 +1,28 @@
+import java.util.Objects;
+import java.util.Scanner;
+
 public class LittleBabyMan {
     public static void main(String[] args) {
-        String logo =   " _        ____     __  __ \n" +
+        final String LOGO =   " _        ____     __  __ \n" +
                         "| |      | __ )   |  \\/  |\n" +
                         "| |      |  _ \\   | |\\/| |\n" +
                         "| |___   | |_) |  | |  | |\n" +
                         "|_____|  |____/   |_|  |_|\n";
-        String spacer = "\n_________________________________________________________________________";
-        System.out.println("Hello I'm LittleBabyMan\n" + logo + "\nI'm going to scream. \nAAAAAAAAAAAAAAAAAA" + spacer);
+        final String SPACER = "\n_________________________________________________________________________\n";
 
-        System.out.println("Bye. I'm going to scream again. \nEEEEEEEEEEEEEEEEEE");
+        final Scanner scanner = new Scanner(System.in);
+
+
+        System.out.printf("Hello I'm LittleBabyMan\n %s \nI'm going to scream. \nWHAT DO YOU WANT??? %s", LOGO, SPACER);
+
+        while (true) {
+            String input = scanner.nextLine();
+            if (Objects.equals(input, "bye")) {
+                break;
+            }
+            System.out.println(input);
+        }
+
+        System.out.println("Bye. I'm going to scream again. \nEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 }
