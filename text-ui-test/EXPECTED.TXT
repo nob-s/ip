@@ -25,36 +25,116 @@ _________________________________________________________________________
 > Event task cannot be EMPTY RAHHHHHHH!!!
 _________________________________________________________________________
 > OK THEN THERE!!! Added:
- [TODO][ ] hello what is up 
+ [TODO][ ] hello what is up
 _________________________________________________________________________
+
 > YOU BETTER DO IT IN TIME!!!!!!! Added:
- [DDLN][ ] diddly (By: ?) 
+ [DDLN][ ] diddly (By: ?)
 _________________________________________________________________________
+
 > YOU BETTER DO IT IN TIME!!!!!!! Added:
- [DDLN][ ] diddly  (By: whenever tbh) 
+ [DDLN][ ] diddly  (By: whenever tbh)
 _________________________________________________________________________
+
 > YOU BETTER DO IT IN TIME!!!!!!! Added:
- [DDLN][ ] diddly  (By: whenever tbh) 
+ [DDLN][ ] diddly  (By: whenever tbh)
 _________________________________________________________________________
-> THIS AIN'T A COMMAND RAAAARGHGHH
-_________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach (From: ?, To: ?)  
+ [EVNT][ ] go beach (From: ?, To: ?) 
 _________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach  (From: this time, To: ?)  
+ [EVNT][ ] go beach  (From: this time, To: ?) 
 _________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach  (From: this time, To: that time)  
+ [EVNT][ ] go beach  (From: this time, To: that time) 
 _________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach  (From: this time, To: that time)  
+ [EVNT][ ] go beach  (From: this time, To: that time) 
 _________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach  (From: this time, To: that time)  
+ [EVNT][ ] go beach  (From: this time, To: that time) 
 _________________________________________________________________________
+
 > BE THERE OR ELSE!!!!! Added:
- [EVNT][ ] go beach  (From: this time, To: that time)  
+ [EVNT][ ] go beach  (From: this time, To: that time) 
 _________________________________________________________________________
+
+> 1. [EVNT][ ]  (From: ?, To: ?) 
+2. [TODO][ ] hello what is up
+3. [DDLN][X] diddly (By: ?)
+4. [DDLN][ ] diddly  (By: whenever tbh)
+5. [DDLN][ ] diddly  (By: whenever tbh)
+6. [EVNT][ ] go beach (From: ?, To: ?) 
+7. [EVNT][ ] go beach  (From: this time, To: ?) 
+8. [EVNT][ ] go beach  (From: this time, To: that time) 
+9. [EVNT][ ] go beach  (From: this time, To: that time) 
+10. [EVNT][ ] go beach  (From: this time, To: that time) 
+11. [EVNT][ ] go beach  (From: this time, To: that time) 
+
+_________________________________________________________________________
+
+> 1. [EVNT][ ]  (From: ?, To: ?) 
+2. [TODO][ ] hello what is up
+3. [DDLN][X] diddly (By: ?)
+4. [DDLN][ ] diddly  (By: whenever tbh)
+5. [DDLN][X] diddly  (By: whenever tbh)
+6. [EVNT][ ] go beach (From: ?, To: ?) 
+7. [EVNT][ ] go beach  (From: this time, To: ?) 
+8. [EVNT][ ] go beach  (From: this time, To: that time) 
+9. [EVNT][ ] go beach  (From: this time, To: that time) 
+10. [EVNT][ ] go beach  (From: this time, To: that time) 
+11. [EVNT][ ] go beach  (From: this time, To: that time) 
+
+_________________________________________________________________________
+
+> 1. [EVNT][ ]  (From: ?, To: ?) 
+2. [TODO][ ] hello what is up
+3. [DDLN][X] diddly (By: ?)
+4. [DDLN][ ] diddly  (By: whenever tbh)
+5. [DDLN][X] diddly  (By: whenever tbh)
+6. [EVNT][ ] go beach (From: ?, To: ?) 
+7. [EVNT][ ] go beach  (From: this time, To: ?) 
+8. [EVNT][X] go beach  (From: this time, To: that time) 
+9. [EVNT][ ] go beach  (From: this time, To: that time) 
+10. [EVNT][ ] go beach  (From: this time, To: that time) 
+11. [EVNT][ ] go beach  (From: this time, To: that time) 
+
+_________________________________________________________________________
+
+> 1. [EVNT][ ]  (From: ?, To: ?) 
+2. [TODO][ ] hello what is up
+3. [DDLN][X] diddly (By: ?)
+4. [DDLN][ ] diddly  (By: whenever tbh)
+5. [DDLN][X] diddly  (By: whenever tbh)
+6. [EVNT][ ] go beach (From: ?, To: ?) 
+7. [EVNT][ ] go beach  (From: this time, To: ?) 
+8. [EVNT][X] go beach  (From: this time, To: that time) 
+9. [EVNT][ ] go beach  (From: this time, To: that time) 
+10. [EVNT][ ] go beach  (From: this time, To: that time) 
+11. [EVNT][ ] go beach  (From: this time, To: that time) 
+
+_________________________________________________________________________
+
+> ok ITS GONE:
+ Deleted: [TODO][ ] hello what is up
+
+
+_________________________________________________________________________
+
+> ok ITS GONE:
+ Deleted: [EVNT][X] go beach  (From: this time, To: that time) 
+
+
+_________________________________________________________________________
+
+> YOUR LIST AIN'T THAT LONG BUDDY
+
+_________________________________________________________________________
+
 > Bye. I'm going to scream again. 
 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE

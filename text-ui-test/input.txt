@@ -10,11 +10,17 @@ todo hello what is up
 deadline diddly
 deadline diddly /by whenever tbh
 deadline diddly /by whenever tbh /by not this
-
 event go beach
 event go beach /from this time
 event go beach /from this time /to that time
 event go beach /from this time /from not this /to that time
 event go beach /from this time /from not this /to that time /to not this
 event go beach /from this time /to that time /from not this /to not this
+mark 3
+mark 5
+mark 8
+mark 200
+delete 2
+delete 7
+delete 200
 bye

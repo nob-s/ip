@@ -53,8 +53,11 @@ public class LittleBabyMan {
             }
             try {
                 ProcessCommand(input);
+                System.out.println(SPACER);
             } catch (UserInputException e) {
                 System.out.printf(e + SPACER);
+            } catch (NumberFormatException e) {
+                System.out.printf("HOW AM I SUPPOSED TO WORK ON NOT A NUMBER%s", SPACER);
             }
         }
 
@@ -72,7 +75,11 @@ public class LittleBabyMan {
                 printTaskMessage(i + 1, t);
             }
         } else if (checkSpecificCommand(input, "mark")) {
-            int n = Integer.parseInt(getMessageOnly(input, "mark"));
+            String msg = getMessageOnly(input, "mark");
+            if (msg.isEmpty()) {
+                throw new NoCommandArgumentException("mark");
+            }
+            int n = Integer.parseInt(msg);
             int len = previousMessages.size();
 
             for (int i = 0; i < len; i++) {
@@ -84,7 +91,11 @@ public class LittleBabyMan {
             }
 
         } else if (checkSpecificCommand(input, "unmark")) {
-            int n = Integer.parseInt(getMessageOnly(input, "unmark"));
+            String msg = getMessageOnly(input, "unmark");
+            if (msg.isEmpty()) {
+                throw new NoCommandArgumentException("unmark");
+            }
+            int n = Integer.parseInt(msg);
             int len = previousMessages.size();
 
             for (int i = 0; i < len; i++) {
@@ -95,7 +106,22 @@ public class LittleBabyMan {
                 printTaskMessage(i + 1, t);
             }
 
-        } else if (checkSpecificCommand(input, "todo")) {
+        } else if (checkSpecificCommand(input, "delete")) {
+            String msg = getMessageOnly(input, "delete");
+            if (msg.isEmpty()) {
+                throw new NoCommandArgumentException("delete");
+            }
+            int n = Integer.parseInt(msg);
+            
+            if (n - 1 < previousMessages.size()) {
+                Task toDelete = previousMessages.get(n - 1);
+                previousMessages.remove(n - 1);
+                System.out.printf("ok ITS GONE:\n Deleted: %s\n\n", toDelete);
+            } else {
+                System.out.println("YOUR LIST AIN'T THAT LONG BUDDY");
+            }
+            
+        }else if (checkSpecificCommand(input, "todo")) {
             String msg = getMessageOnly(input, "todo");
 
             Task task = new TodoTask(msg);
@@ -103,7 +129,7 @@ public class LittleBabyMan {
                 throw new EmptyTaskException(task);
             }
             previousMessages.add(task);
-            System.out.printf("OK THEN THERE!!! Added:\n %s %s", task, SPACER);
+            System.out.printf("OK THEN THERE!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "deadline")) {
             String msg = getMessageOnly(input, "deadline").split("/by")[0];
@@ -113,7 +139,7 @@ public class LittleBabyMan {
                 throw new EmptyTaskException(task);
             }
             previousMessages.add(task);
-            System.out.printf("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s %s", task, SPACER);
+            System.out.printf("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "event")) {
             String msg = getMessageOnly(input, "event").split("/from")[0];
@@ -123,7 +149,7 @@ public class LittleBabyMan {
             if (msg.isEmpty()) {
                 throw new EmptyTaskException(task);
             }
-            System.out.printf("BE THERE OR ELSE!!!!! Added:\n %s %s", task, SPACER);
+            System.out.printf("BE THERE OR ELSE!!!!! Added:\n %s", task);
 
         } else {
             throw new NotACommandException();
