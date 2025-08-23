@@ -6,7 +6,7 @@ public class LittleBabyMan {
 
 
     static final String LOGO = """
-             _        ____     __  __\s
+            _        ____     __  __\s
             | |      | __ )   |  \\/  |
             | |      |  _ \\   | |\\/| |
             | |___   | |_) |  | |  | |
@@ -127,7 +127,8 @@ public class LittleBabyMan {
         if (toSplit.length < 2) {
             return "?";
         }
-        return toSplit[1].trim();
+        String[] fromSplit = toSplit[1].split("/from");
+        return fromSplit[0].trim();
     }
 
     private static String getDeadlineTime(String input) {
