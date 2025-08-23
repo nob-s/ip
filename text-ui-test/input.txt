@@ -1,5 +1,11 @@
-rando
 
+rando
+todo
+todo 
+deadline
+deadline 
+event
+event 
 todo hello what is up
 deadline diddly
 deadline diddly /by whenever tbh

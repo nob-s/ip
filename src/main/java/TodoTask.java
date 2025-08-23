@@ -4,6 +4,11 @@ public class TodoTask extends Task {
     }
 
     @Override
+    public String getTaskType() {
+        return "Todo";
+    }
+
+    @Override
     public String toString() {
         String m = getMark() ? "X" : " ";
         return String.format("[%s][%s] %s", "TODO", m, getTask());

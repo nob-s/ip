@@ -8,9 +8,23 @@ Hello I'm LittleBabyMan
 I'm going to scream. 
 WHAT DO YOU WANT??? 
 _________________________________________________________________________
-> GIMMME SOMETHING TO DO WAHHHHHHHHHHHHHHHHHHHHHH 
+> THIS AIN'T A COMMAND RAAAARGHGHH
 _________________________________________________________________________
-> > OK THEN THERE!!! Added:
+> THIS AIN'T A COMMAND RAAAARGHGHH
+_________________________________________________________________________
+> PUT A SPACE AFTER 'todo' DANGIT!!!!
+_________________________________________________________________________
+> Todo task cannot be EMPTY RAHHHHHHH!!!
+_________________________________________________________________________
+> PUT A SPACE AFTER 'deadline' DANGIT!!!!
+_________________________________________________________________________
+> Deadline task cannot be EMPTY RAHHHHHHH!!!
+_________________________________________________________________________
+> PUT A SPACE AFTER 'event' DANGIT!!!!
+_________________________________________________________________________
+> Event task cannot be EMPTY RAHHHHHHH!!!
+_________________________________________________________________________
+> OK THEN THERE!!! Added:
  [TODO][ ] hello what is up 
 _________________________________________________________________________
 > YOU BETTER DO IT IN TIME!!!!!!! Added:
@@ -22,7 +36,9 @@ _________________________________________________________________________
 > YOU BETTER DO IT IN TIME!!!!!!! Added:
  [DDLN][ ] diddly  (By: whenever tbh) 
 _________________________________________________________________________
-> > BE THERE OR ELSE!!!!! Added:
+> THIS AIN'T A COMMAND RAAAARGHGHH
+_________________________________________________________________________
+> BE THERE OR ELSE!!!!! Added:
  [EVNT][ ] go beach (From: ?, To: ?)  
 _________________________________________________________________________
 > BE THERE OR ELSE!!!!! Added:

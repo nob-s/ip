@@ -9,6 +9,11 @@ public class EventTask extends Task{
         this.to = to;
     }
 
+    @Override
+    public String getTaskType() {
+        return "Event";
+    }
+
     public String getFrom() {
         return from;
     }

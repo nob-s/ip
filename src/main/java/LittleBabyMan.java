@@ -14,6 +14,30 @@ public class LittleBabyMan {
             """;
     static final String SPACER = "\n_________________________________________________________________________\n";
 
+    static final String commandList = """
+        ALRIGHT HERE, GIMME SOMETHING TO DO AFTER RAGGGGGHHHHHH!!!
+        
+        help: see list of commands
+        
+        list: see all tasks
+        
+        mark: mark task as complete
+            mark [list number]
+            e.g. mark 5
+        unmark: mark task as incomplete
+            unmark [list number]
+            e.g. unmark 3
+        todo: create a todo task
+            todo [description]
+            e.g. todo go to the beach
+        deadline: create a deadline task
+            deadline [description] /by [date and time]
+            e.g. deadline work /by Monday 5pm
+        event: create an event task
+            event [description] /from [date and time] /to [date and time]
+            e.g. event bbq /from Tuesday 2pm /to Tuesday 10pm
+        """;
+
     static final ArrayList<Task> previousMessages = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -27,9 +51,10 @@ public class LittleBabyMan {
             if (Objects.equals(input.toLowerCase(), "bye")) { /// Exit check
                 break;
             }
-
-            if (!isValidCommand(input) && !input.trim().isEmpty()) { /// If not command, put in list
-                System.out.printf("GIMMME SOMETHING TO DO WAHHHHHHHHHHHHHHHHHHHHHH %s", SPACER);
+            try {
+                ProcessCommand(input);
+            } catch (UserInputException e) {
+                System.out.printf(e + SPACER);
             }
         }
 
@@ -37,17 +62,17 @@ public class LittleBabyMan {
     }
 
     /// if command exists, print stuff rtn true, else rtn false
-    public static boolean isValidCommand(String input) {
-        if (Objects.equals(input, "list")) {
+    public static void ProcessCommand(String input) throws UserInputException {
+        if (Objects.equals(input.trim().toLowerCase(), "help")) {
+            System.out.printf(commandList);
+        } else if (Objects.equals(input, "list")) {
             int len = previousMessages.size();
             for (int i = 0; i < len; i++) {
                 Task t = previousMessages.get(i);
                 printTaskMessage(i + 1, t);
             }
-            return true;
         } else if (checkSpecificCommand(input, "mark")) {
-            int commandLen = "mark".length() + 1;
-            int n = input.charAt(commandLen) - '0';
+            int n = Integer.parseInt(getMessageOnly(input, "mark"));
             int len = previousMessages.size();
 
             for (int i = 0; i < len; i++) {
@@ -58,10 +83,8 @@ public class LittleBabyMan {
                 printTaskMessage(i + 1, t);
             }
 
-            return true;
         } else if (checkSpecificCommand(input, "unmark")) {
-            int commandLen = "unmark".length() + 1;
-            int n = input.charAt(commandLen) - '0';
+            int n = Integer.parseInt(getMessageOnly(input, "unmark"));
             int len = previousMessages.size();
 
             for (int i = 0; i < len; i++) {
@@ -72,41 +95,52 @@ public class LittleBabyMan {
                 printTaskMessage(i + 1, t);
             }
 
-            return true;
         } else if (checkSpecificCommand(input, "todo")) {
-            int commandLen = "todo".length() + 1;
-            String msg = input.substring(commandLen);
+            String msg = getMessageOnly(input, "todo");
 
             Task task = new TodoTask(msg);
+            if (msg.isEmpty()) {
+                throw new EmptyTaskException(task);
+            }
             previousMessages.add(task);
             System.out.printf("OK THEN THERE!!! Added:\n %s %s", task, SPACER);
 
-            return true;
         } else if (checkSpecificCommand(input, "deadline")) {
-            int commandLen = "deadline".length() + 1;
-            String msg = input.substring(commandLen).split("/by")[0];
+            String msg = getMessageOnly(input, "deadline").split("/by")[0];
 
             Task task = new DeadlineTask(msg, getDeadlineTime(input));
+            if (msg.isEmpty()) {
+                throw new EmptyTaskException(task);
+            }
             previousMessages.add(task);
             System.out.printf("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s %s", task, SPACER);
 
-            return true;
         } else if (checkSpecificCommand(input, "event")) {
-            int commandLen = "event".length() + 1;
-            String msg = input.substring(commandLen).split("/from")[0];
+            String msg = getMessageOnly(input, "event").split("/from")[0];
 
             Task task = new EventTask(msg, getFromTime(input), getToTime(input));
             previousMessages.add(task);
+            if (msg.isEmpty()) {
+                throw new EmptyTaskException(task);
+            }
             System.out.printf("BE THERE OR ELSE!!!!! Added:\n %s %s", task, SPACER);
 
-            return true;
         } else {
-            return false;
+            throw new NotACommandException();
         }
     }
+
     private static boolean checkSpecificCommand(String input, String command) {
-        int len = command.length() + 1;
-        return input.length() >= len && Objects.equals(input.substring(0, len).toLowerCase(), command + ' ');
+        int len = command.length();
+        return input.length() >= len && Objects.equals(input.substring(0, len).toLowerCase(), command);
+    }
+
+    private static String getMessageOnly(String input, String command) throws NoSpaceAfterCommandException {
+        String messageAndSpace = input.substring(command.length());
+        if (messageAndSpace.isEmpty() || messageAndSpace.charAt(0) != ' ') {
+            throw new NoSpaceAfterCommandException(command);
+        }
+        return messageAndSpace.substring(1);
     }
 
     private static void printTaskMessage(int number, Task task) {
