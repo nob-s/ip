@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public abstract class Task {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     /*
-    Returns the name of the type of Task
+    Returns the name of the type of tasks.Task
      */
     public abstract String getTaskType();
 

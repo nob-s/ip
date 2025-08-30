@@ -1,3 +1,5 @@
+package exceptions;
+
 public class NoCommandArgumentException extends UserInputException{
     private String message;
     
