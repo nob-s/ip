@@ -7,6 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.Task;
+import tasks.TodoTask;
 
 public class Storage {
     private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";

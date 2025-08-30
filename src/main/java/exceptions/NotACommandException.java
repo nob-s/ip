@@ -1,3 +1,5 @@
+package exceptions;
+
 public class NotACommandException extends UserInputException{
     public NotACommandException() {}
 

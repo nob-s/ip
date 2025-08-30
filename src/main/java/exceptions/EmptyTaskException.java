@@ -1,3 +1,7 @@
+package exceptions;
+
+import tasks.Task;
+
 public class EmptyTaskException extends UserInputException{
     private final String message;
 

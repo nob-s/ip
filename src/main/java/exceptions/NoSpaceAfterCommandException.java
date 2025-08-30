@@ -1,3 +1,5 @@
+package exceptions;
+
 public class NoSpaceAfterCommandException extends UserInputException{
     private String message;
 
