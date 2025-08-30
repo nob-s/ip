@@ -2,17 +2,25 @@ public abstract class Task {
 
     private boolean mark;
 
-    private final String task;
-
+    private final String description;
+    
+    /*
+    Returns the name of the type of Task
+     */
     public abstract String getTaskType();
 
-    public Task(String task) {
-        this.task = task;
+    /*
+    Returns info about task used for saving
+     */
+    public abstract String getSaveString();
+    
+    public Task(String description) {
+        this.description = description;
         this.mark = false;
     }
 
-    public String getTask() {
-        return this.task;
+    public String getDescription() {
+        return this.description;
     }
 
     public boolean getMark() {

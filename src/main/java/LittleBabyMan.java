@@ -1,23 +1,28 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class LittleBabyMan {
 
 
-    static final String LOGO = """
+    private static final String LOGO = """
             _        ____     __  __\s
             | |      | __ )   |  \\/  |
             | |      |  _ \\   | |\\/| |
             | |___   | |_) |  | |  | |
             |_____|  |____/   |_|  |_|
             """;
-    static final String SPACER = "\n_________________________________________________________________________\n";
-
+    private static final String SPACER = "\n_________________________________________________________________________\n";
+    
+    static final ArrayList<Task> taskList = new ArrayList<>();
+    
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
-
+        
         System.out.printf("Hello I'm LittleBabyMan\n %s \nI'm going to scream. \nWHAT DO YOU WANT??? %s", LOGO, SPACER);
-
+        
+        TaskSaver.restoreTaskList(CommandProcessor.taskList);
+        
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine();

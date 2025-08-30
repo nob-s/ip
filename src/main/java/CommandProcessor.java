@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class CommandProcessor {
-    static final String COMMAND_LIST = """
+    private static final String COMMAND_LIST = """
         ALRIGHT HERE, GIMME SOMETHING TO DO AFTER RAGGGGGHHHHHH!!!
         
         help: see list of commands
