@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class CommandProcessor {
+public class Parser {
     private static final String COMMAND_LIST = """
         ALRIGHT HERE, GIMME SOMETHING TO DO AFTER RAGGGGGHHHHHH!!!
         

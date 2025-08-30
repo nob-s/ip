@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -28,7 +27,7 @@ public class LittleBabyMan {
                 break;
             }
             try {
-                CommandProcessor.processCommand(input);
+                Parser.processCommand(input);
                 System.out.println(SPACER);
             } catch (UserInputException e) {
                 System.out.printf(e + SPACER);
