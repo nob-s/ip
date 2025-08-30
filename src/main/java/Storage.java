@@ -1,7 +1,6 @@
 import java.io.IOException;
 
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TaskSaver {
+public class Storage {
     private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
 
     public static void saveTaskList(ArrayList<Task> taskList) {
