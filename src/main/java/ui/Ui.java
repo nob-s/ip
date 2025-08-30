@@ -1,4 +1,7 @@
+package ui;
+
 import exceptions.UserInputException;
+import parser.Parser;
 
 import java.util.Objects;
 import java.util.Scanner;
