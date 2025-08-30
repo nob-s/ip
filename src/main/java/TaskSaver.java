@@ -1,0 +1,71 @@
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class TaskSaver {
+    private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
+
+    public static void saveTaskList(ArrayList<Task> taskList) {
+        Path path = Paths.get(SAVE_FILE_PATH);
+        try {
+            Files.createDirectories(path.getParent());
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+            
+            ArrayList<String> saveList = new ArrayList<>();
+            for (Task task: taskList) {
+                saveList.add(task.getSaveString());
+            }
+            Files.write(path, saveList);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void restoreTaskList(ArrayList<Task> taskList) {
+        Path path = Paths.get(SAVE_FILE_PATH);
+        try {
+            Files.createDirectories(path.getParent());
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+            
+            List<String> taskStrings = Files.readAllLines(path);
+            for (String taskString : taskStrings) {
+                String[] split = taskString.split("\\|\\|\\|");
+                String type = split[0];
+                String mark = split[1];
+                String description = split[2];
+                Task task = null;
+                
+                switch (type){
+                case "Todo":
+                    task = new TodoTask(description);
+                    break;
+                case "Deadline":
+                    String deadline = split[3];
+                    task = new DeadlineTask(description, deadline);
+                    break;
+                case "Event":
+                    String from = split[3];
+                    String to = split[4];
+                    task = new EventTask(description, from, to);
+                    break;
+                default:
+                    System.out.println("Hmmm something went wrong");
+                } 
+                taskList.add(task);
+            }
+        } catch (IOException e) {
+            
+        }
+    }
+}

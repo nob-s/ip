@@ -1,8 +1,8 @@
 public class DeadlineTask extends Task{
     private final String deadline;
 
-    public DeadlineTask(String task, String deadline) {
-        super(task);
+    public DeadlineTask(String description, String deadline) {
+        super(description);
         this.deadline = deadline;
     }
 
@@ -18,6 +18,11 @@ public class DeadlineTask extends Task{
     @Override
     public String toString() {
         String m = getMark() ? "X" : " ";
-        return String.format("[%s][%s] %s (By: %s)", "DDLN", m, getTask(), deadline);
+        return String.format("[%s][%s] %s (By: %s)", "DDLN", m, getDescription(), deadline);
+    }
+    
+    @Override
+    public String getSaveString() {
+        return String.format("%s|||%s|||%s|||%s", getTaskType(), getMark(), getDescription(), getDeadline());
     }
 }

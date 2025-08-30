@@ -3,8 +3,8 @@ public class EventTask extends Task{
 
     private final String to;
 
-    public EventTask(String task, String from, String to) {
-        super(task);
+    public EventTask(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
     }
@@ -25,6 +25,11 @@ public class EventTask extends Task{
     @Override
     public String toString() {
         String m = getMark() ? "X" : " ";
-        return String.format("[%s][%s] %s (From: %s, To: %s) ", "EVNT", m, getTask(), from, to);
+        return String.format("[%s][%s] %s (From: %s, To: %s) ", "EVNT", m, getDescription(), from, to);
+    }
+    
+    @Override
+    public String getSaveString() {
+        return String.format("%s|||%s|||%s|||%s|||%s", getTaskType(), getMark(), getDescription(), getFrom(), getTo());
     }
 }
