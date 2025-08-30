@@ -9,6 +9,7 @@ import exceptions.UserInputException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.Task;
+import tasks.TaskList;
 import tasks.TodoTask;
 
 public class Parser {
