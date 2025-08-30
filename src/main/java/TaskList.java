@@ -50,11 +50,11 @@ public class TaskList {
     }
     
     public static void updateListToSave() {
-        TaskSaver.saveTaskList(taskList);
+        Storage.saveTaskList(taskList);
     }
     
     public static void restoreListFromSave() {
-        TaskSaver.restoreTaskList(taskList);
+        Storage.restoreTaskList(taskList);
     }
     
     private static void printTaskMessage(int number, Task task) {
