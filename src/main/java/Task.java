@@ -44,9 +44,9 @@ public abstract class Task {
             return "NIL";
         } else {
             int h = time.getHour();
-            return String.format("%s/%s/%s %s:%02d%s",
+            return String.format("%02d/%02d/%04d %s:%02d%s",
                     time.getDayOfMonth(), time.getMonthValue(), time.getYear(),
-                    h > 12 ? h - 12 : h, time.getMinute(), h > 12 ? "pm" : "am");
+                    h == 0 ? 12 : h > 12 ? h - 12 : h, time.getMinute(), h > 12 ? "pm" : "am");
         }
     }
     

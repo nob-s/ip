@@ -14,14 +14,12 @@ public class LittleBabyMan {
             """;
     private static final String SPACER = "\n_________________________________________________________________________\n";
     
-    static final ArrayList<Task> taskList = new ArrayList<>();
-    
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         
         System.out.printf("Hello I'm LittleBabyMan\n %s \nI'm going to scream. \nWHAT DO YOU WANT??? %s", LOGO, SPACER);
         
-        TaskSaver.restoreTaskList(CommandProcessor.taskList);
+        TaskList.restoreListFromSave();
         
         while (true) {
             System.out.print("> ");

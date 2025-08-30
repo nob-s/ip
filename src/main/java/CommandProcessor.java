@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class CommandProcessor {
@@ -28,8 +27,6 @@ public class CommandProcessor {
             event [description] /from [date and time] /to [date and time]
             e.g. event bbq /from Tuesday 2pm /to Tuesday 10pm
         """;
-
-    static final ArrayList<Task> taskList = new ArrayList<>();
     
     /// if command exists, print stuff rtn true, else rtn false
     public static void processCommand(String input) throws UserInputException {
@@ -38,11 +35,7 @@ public class CommandProcessor {
             System.out.printf(COMMAND_LIST);
             return;
         } else if (Objects.equals(input, "list")) {
-            int len = taskList.size();
-            for (int i = 0; i < len; i++) {
-                Task t = taskList.get(i);
-                printTaskMessage(i + 1, t);
-            }
+            TaskList.printTaskList();
             return;
         }
         
@@ -53,15 +46,9 @@ public class CommandProcessor {
                 throw new NoCommandArgumentException("mark");
             }
             int n = Integer.parseInt(msg);
-            int len = taskList.size();
-
-            for (int i = 0; i < len; i++) {
-                Task t = taskList.get(i);
-                if (n == i + 1) {
-                    t.mark();
-                }
-                printTaskMessage(i + 1, t);
-            }
+            
+            TaskList.markTaskAt(n);
+            TaskList.printTaskList();
 
         } else if (checkSpecificCommand(input, "unmark")) {
             String msg = getMessageOnly(input, "unmark");
@@ -69,15 +56,9 @@ public class CommandProcessor {
                 throw new NoCommandArgumentException("unmark");
             }
             int n = Integer.parseInt(msg);
-            int len = taskList.size();
-
-            for (int i = 0; i < len; i++) {
-                Task t = taskList.get(i);
-                if (n == i + 1) {
-                    t.unmark();
-                }
-                printTaskMessage(i + 1, t);
-            }
+            
+            TaskList.unmarkTaskAt(n);
+            TaskList.printTaskList();
 
         } else if (checkSpecificCommand(input, "delete")) {
             String msg = getMessageOnly(input, "delete");
@@ -85,13 +66,12 @@ public class CommandProcessor {
                 throw new NoCommandArgumentException("delete");
             }
             int n = Integer.parseInt(msg);
-
-            if (n - 1 < taskList.size()) {
-                Task toDelete = taskList.get(n - 1);
-                taskList.remove(n - 1);
-                System.out.printf("ok ITS GONE:\n Deleted: %s\n\n", toDelete);
-            } else {
+            
+            Task toDelete = TaskList.deleteTaskAt(n);
+            if (toDelete == null) {
                 System.out.println("YOUR LIST AIN'T THAT LONG BUDDY");
+            } else {
+                System.out.printf("ok ITS GONE:\n Deleted: %s\n\n", toDelete);
             }
 
         } else if (checkSpecificCommand(input, "todo")) {
@@ -101,7 +81,7 @@ public class CommandProcessor {
             if (msg.isEmpty()) {
                 throw new EmptyTaskException(task);
             }
-            taskList.add(task);
+            TaskList.addTask(task);
             System.out.printf("OK THEN THERE!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "deadline")) {
@@ -111,14 +91,14 @@ public class CommandProcessor {
             if (msg.isEmpty()) {
                 throw new EmptyTaskException(task);
             }
-            taskList.add(task);
+            TaskList.addTask(task);
             System.out.printf("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "event")) {
             String msg = getMessageOnly(input, "event").split("/from")[0];
 
             Task task = new EventTask(msg, getFromTime(input), getToTime(input));
-            taskList.add(task);
+            TaskList.addTask(task);
             if (msg.isEmpty()) {
                 throw new EmptyTaskException(task);
             }
@@ -127,7 +107,7 @@ public class CommandProcessor {
         } else {
             throw new NotACommandException();
         }
-        TaskSaver.saveTaskList(taskList);
+        TaskList.updateListToSave();
     }
 
     private static boolean checkSpecificCommand(String input, String command) {
@@ -143,9 +123,6 @@ public class CommandProcessor {
         return messageAndSpace.substring(1);
     }
 
-    private static void printTaskMessage(int number, Task task) {
-        System.out.printf("%d. %s\n", number, task);
-    }
 
     private static String getFromTime(String input) {
         String[] fromSplit = input.split("/from");
