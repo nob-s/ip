@@ -71,7 +71,7 @@ public class Parser {
             if (toDelete == null) {
                 System.out.println("YOUR LIST AIN'T THAT LONG BUDDY");
             } else {
-                System.out.printf("ok ITS GONE:\n Deleted: %s\n\n", toDelete);
+                System.out.printf("ok ITS GONE:\n Deleted: %s\n", toDelete);
             }
 
         } else if (checkSpecificCommand(input, "todo")) {
