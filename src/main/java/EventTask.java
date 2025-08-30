@@ -1,12 +1,23 @@
-public class EventTask extends Task{
-    private final String from;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    private final String to;
+public class EventTask extends Task{
+    private LocalDateTime from;
+
+    private LocalDateTime to;
 
     public EventTask(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from, formatter);
+        } catch (DateTimeParseException e) {
+            this.from = null;
+        }
+        try {
+            this.to = LocalDateTime.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            this.to = null;
+        }
     }
 
     @Override
@@ -14,22 +25,26 @@ public class EventTask extends Task{
         return "Event";
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 
     @Override
     public String toString() {
         String m = getMark() ? "X" : " ";
-        return String.format("[%s][%s] %s (From: %s, To: %s) ", "EVNT", m, getDescription(), from, to);
+        return String.format("[%s][%s] %s (From: %s, To: %s) ", 
+                "EVNT", m, getDescription(),
+                getDateTimeAsString(from), getDateTimeAsString(to));
     }
     
     @Override
     public String getSaveString() {
-        return String.format("%s|||%s|||%s|||%s|||%s", getTaskType(), getMark(), getDescription(), getFrom(), getTo());
+        return String.format("%s|||%s|||%s|||%s|||%s", 
+                getTaskType(), getMark(), getDescription(), 
+                getSaveDateTimeAsString(from), getSaveDateTimeAsString(to));
     }
 }

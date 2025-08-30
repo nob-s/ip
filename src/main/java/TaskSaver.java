@@ -42,8 +42,8 @@ public class TaskSaver {
             for (String taskString : taskStrings) {
                 String[] split = taskString.split("\\|\\|\\|");
                 String type = split[0];
-                String mark = split[1];
-                String description = split[2];
+                boolean mark = Boolean.parseBoolean(split[1]);
+                String description = split[2].trim();
                 Task task = null;
                 
                 switch (type){
@@ -63,6 +63,9 @@ public class TaskSaver {
                     System.out.println("Hmmm something went wrong");
                 } 
                 taskList.add(task);
+                if (mark && task != null) {
+                    task.mark();
+                }
             }
         } catch (IOException e) {
             
