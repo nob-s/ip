@@ -6,9 +6,7 @@ import storage.Storage;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final ArrayList<Task> taskList = new ArrayList<>();
-
-    public static void printTaskList() {
+     public static void printTaskList() {
         int len = taskList.size();
         for (int i = 0; i < len; i++) {
             Task t = taskList.get(i);
@@ -27,14 +25,14 @@ public class TaskList {
         if (listNumber > taskList.size()) {
             return;
         }
-        taskList.get(listNumber - 1).mark();
+        taskList.get(listNumber - 1).setMarked(true);
     }
 
     public static void unmarkTaskAt(int listNumber) {
         if (listNumber > taskList.size()) {
             return;
         }
-        taskList.get(listNumber - 1).unmark();
+        taskList.get(listNumber - 1).setMarked(false);
     }
     
     public static Task deleteTaskAt(int listNumber) {
@@ -65,4 +63,6 @@ public class TaskList {
     private static void printTaskMessage(int number, Task task) {
         System.out.printf("%d. %s\n", number, task);
     }
+
+    private static final ArrayList<Task> taskList = new ArrayList<>();
 }

@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
 
-    private boolean mark;
+    private boolean isMarked;
 
     private final String description;
 
@@ -25,7 +25,19 @@ public abstract class Task {
     
     public Task(String description) {
         this.description = description;
-        this.mark = false;
+        this.isMarked = false;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean getMarked() {
+        return this.isMarked;
+    }
+
+    public void setMarked(boolean isMarked) {
+        this.isMarked = isMarked;
     }
     
     /**
@@ -65,20 +77,4 @@ public abstract class Task {
     public boolean getMark() {
         return this.mark;
     }
-
-    /**
-     * Set this.mark as true
-     */
-    public void mark() {
-        this.mark = true;
-    }
-    
-    /**
-     * Set this.mark as false
-     */
-    public void unmark() {
-        this.mark = false;
-    }
-    
-
 }

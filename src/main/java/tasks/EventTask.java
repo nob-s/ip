@@ -37,7 +37,7 @@ public class EventTask extends Task{
 
     @Override
     public String toString() {
-        String m = getMark() ? "X" : " ";
+        String m = getMarked() ? "X" : " ";
         return String.format("[%s][%s] %s (From: %s, To: %s) ", 
                 "EVNT", m, getDescription(),
                 getDateTimeAsString(from), getDateTimeAsString(to));
@@ -46,7 +46,7 @@ public class EventTask extends Task{
     @Override
     public String getSaveString() {
         return String.format("%s|||%s|||%s|||%s|||%s", 
-                getTaskType(), getMark(), getDescription(), 
+                getTaskType(), getMarked(), getDescription(), 
                 getSaveDateTimeAsString(from), getSaveDateTimeAsString(to));
     }
 }

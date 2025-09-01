@@ -12,12 +12,12 @@ public class TodoTask extends Task {
 
     @Override
     public String toString() {
-        String m = getMark() ? "X" : " ";
+        String m = getMarked() ? "X" : " ";
         return String.format("[%s][%s] %s", "TODO", m, getDescription());
     }
     
     @Override
     public String getSaveString() {
-        return String.format("%s|||%s|||%s", getTaskType(), getMark(), getDescription());
+        return String.format("%s|||%s|||%s", getTaskType(), getMarked(), getDescription());
     }
 }
