@@ -36,10 +36,10 @@ public class Parser {
             e.g. todo go to the beach
         deadline: create a deadline task
             deadline [description] /by [date and time]
-            e.g. deadline work /by Monday 5pm
+            e.g. deadline work /by 20-05-2025 0800
         event: create an event task
             event [description] /from [date and time] /to [date and time]
-            e.g. event bbq /from Tuesday 2pm /to Tuesday 10pm
+            e.g. event bbq /from 20-05-2025 0800 /to 20-05-2025 1800
         """;
     
     /// if command exists, print stuff rtn true, else rtn false
