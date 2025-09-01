@@ -18,6 +18,22 @@ public class TaskList {
     }
 
     /**
+     * Prints formatted list which only contain tasks with contain substring "find
+     * @param find ArrayList of listNumbers to be printed
+     */
+    public static void printSelectiveTaskList(String find) {
+        int idx = 1;
+        for (Task t : taskList) {
+            if (t.getDescription().contains(find)) {
+                printTaskMessage(idx++, t);
+            }
+        }
+        if (idx == 1) {
+            System.out.printf("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
+        }
+    }
+    
+    /**
      * 
      * @param listNumber Number as reflected on the list upon "list" command
      * @return Task object at the list position

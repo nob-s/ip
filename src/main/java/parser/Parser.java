@@ -21,7 +21,6 @@ public class Parser {
      * @param input Raw input of the user taken from Ui class.
      * @throws UserInputException If user input doesn't fit format
      **/
-
     public static void processCommand(String input) throws UserInputException {
         //Commands without args below
         if (Objects.equals(input.trim().toLowerCase(), "help")) {
@@ -33,7 +32,14 @@ public class Parser {
         }
         
         //Commands with args below
-        if (checkSpecificCommand(input, "mark")) {
+        if (checkSpecificCommand(input, "find")) {
+            String msg = getMessageOnly(input, "find");
+            if (msg.isEmpty()) {
+                throw new NoCommandArgumentException("mark");
+            }
+            TaskList.printSelectiveTaskList(msg);
+            
+        } else if (checkSpecificCommand(input, "mark")) {
             String msg = getMessageOnly(input, "mark");
             if (msg.isEmpty()) {
                 throw new NoCommandArgumentException("mark");
