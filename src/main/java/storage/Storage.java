@@ -17,6 +17,11 @@ import tasks.TodoTask;
 public class Storage {
     private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
 
+    /**
+     * Saves all tasks in taskList based on their .getSaveString() value into savedTasks.txt
+     * 
+     * @param taskList ArrayList of all Tasks added
+     */
     public static void saveTaskList(ArrayList<Task> taskList) {
         Path path = Paths.get(SAVE_FILE_PATH);
         try {
@@ -34,7 +39,12 @@ public class Storage {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Parses all tasks from savedTasks.txt and restores them into taskList
+     * 
+     * @param taskList ArrayList where all tasks are to be stored
+     */
     public static void restoreTaskList(ArrayList<Task> taskList) {
         Path path = Paths.get(SAVE_FILE_PATH);
         try {
