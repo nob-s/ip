@@ -69,12 +69,4 @@ public abstract class Task {
                 time.getDayOfMonth(), time.getMonthValue(), time.getYear(),
                 time.getHour(), time.getMinute());
     }
-    
-    public String getDescription() {
-        return this.description;
-    }
-
-    public boolean getMark() {
-        return this.mark;
-    }
 }
