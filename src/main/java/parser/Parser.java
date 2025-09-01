@@ -15,33 +15,6 @@ import tasks.TaskList;
 import tasks.TodoTask;
 
 public class Parser {
-    private static final String COMMAND_LIST = """
-        ALRIGHT HERE, GIMME SOMETHING TO DO AFTER RAGGGGGHHHHHH!!!
-        
-        help: see list of commands
-        
-        list: see all tasks
-        
-        delete: delete task at position
-            delete [list number]
-            e.g. delete 3
-        mark: mark task as complete
-            mark [list number]
-            e.g. mark 5
-        unmark: mark task as incomplete
-            unmark [list number]
-            e.g. unmark 3
-        todo: create a todo task
-            todo [description]
-            e.g. todo go to the beach
-        deadline: create a deadline task
-            deadline [description] /by [date and time]
-            e.g. deadline work /by 20-05-2025 0800
-        event: create an event task
-            event [description] /from [date and time] /to [date and time]
-            e.g. event bbq /from 20-05-2025 0800 /to 20-05-2025 1800
-        """;
-    
     /// if command exists, print stuff rtn true, else rtn false
     public static void processCommand(String input) throws UserInputException {
         //Commands without args below
@@ -163,4 +136,32 @@ public class Parser {
         }
         return deadlineSplit[1].trim();
     }
+    
+    private static final String COMMAND_LIST = """
+        ALRIGHT HERE, GIMME SOMETHING TO DO AFTER RAGGGGGHHHHHH!!!
+        
+        help: see list of commands
+        
+        list: see all tasks
+        
+        delete: delete task at position
+            delete [list number]
+            e.g. delete 3
+        mark: mark task as complete
+            mark [list number]
+            e.g. mark 5
+        unmark: mark task as incomplete
+            unmark [list number]
+            e.g. unmark 3
+        todo: create a todo task
+            todo [description]
+            e.g. todo go to the beach
+        deadline: create a deadline task
+            deadline [description] /by [date and time]
+            e.g. deadline work /by 20-05-2025 0800
+        event: create an event task
+            event [description] /from [date and time] /to [date and time]
+            e.g. event bbq /from 20-05-2025 0800 /to 20-05-2025 1800
+        """;
+
 }

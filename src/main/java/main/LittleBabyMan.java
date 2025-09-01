@@ -1,3 +1,5 @@
+package main;
+
 import tasks.TaskList;
 import ui.Ui;
 

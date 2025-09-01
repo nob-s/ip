@@ -7,20 +7,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String LOGO = """
-            _        ____     __  __\s
-            | |      | __ )   |  \\/  |
-            | |      |  _ \\   | |\\/| |
-            | |___   | |_) |  | |  | |
-            |_____|  |____/   |_|  |_|
-            """;
-
-    private static final String SPACER = "\n_________________________________________________________________________\n";
-
     public static void beginChat() {
         final Scanner scanner = new Scanner(System.in);
 
-        System.out.printf("Hello I'm LittleBabyMan\n %s \nI'm going to scream. \nWHAT DO YOU WANT??? %s", LOGO, SPACER);
+        System.out.printf("Hello I'm main.LittleBabyMan\n %s \nI'm going to scream. \nWHAT DO YOU WANT??? %s", LOGO, SPACER);
 
         while (true) {
             System.out.print("> ");
@@ -40,4 +30,13 @@ public class Ui {
 
         System.out.println("Bye. I'm going to scream again. \nEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
+    private static final String LOGO = """
+            _        ____     __  __\s
+            | |      | __ )   |  \\/  |
+            | |      |  _ \\   | |\\/| |
+            | |___   | |_) |  | |  | |
+            |_____|  |____/   |_|  |_|
+            """;
+
+    private static final String SPACER = "\n_______________________________________________________________________\n";
 }

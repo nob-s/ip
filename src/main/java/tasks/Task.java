@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
 
-    private boolean mark;
+    private boolean isMarked;
 
     private final String description;
 
@@ -22,23 +22,19 @@ public abstract class Task {
     
     public Task(String description) {
         this.description = description;
-        this.mark = false;
+        this.isMarked = false;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-    public boolean getMark() {
-        return this.mark;
+    public boolean getMarked() {
+        return this.isMarked;
     }
 
-    public void mark() {
-        this.mark = true;
-    }
-
-    public void unmark() {
-        this.mark = false;
+    public void setMarked(boolean isMarked) {
+        this.isMarked = isMarked;
     }
     
     public String getDateTimeAsString(LocalDateTime time) {

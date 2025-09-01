@@ -26,7 +26,7 @@ public class DeadlineTask extends Task{
     
     @Override
     public String toString() {
-        String m = getMark() ? "X" : " ";
+        String m = getMarked() ? "X" : " ";
         return String.format("[%s][%s] %s (By: %s)", 
                 "DDLN", m, getDescription(), 
                 getDateTimeAsString(deadline));
@@ -35,7 +35,7 @@ public class DeadlineTask extends Task{
     @Override
     public String getSaveString() {
         return String.format("%s|||%s|||%s|||%s", 
-                getTaskType(), getMark(), getDescription(), 
+                getTaskType(), getMarked(), getDescription(), 
                 getSaveDateTimeAsString(deadline));
     }
 }

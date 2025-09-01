@@ -15,8 +15,6 @@ import tasks.Task;
 import tasks.TodoTask;
 
 public class Storage {
-    private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
-
     public static void saveTaskList(ArrayList<Task> taskList) {
         Path path = Paths.get(SAVE_FILE_PATH);
         try {
@@ -69,11 +67,13 @@ public class Storage {
                 } 
                 taskList.add(task);
                 if (mark && task != null) {
-                    task.mark();
+                    task.setMarked(true);
                 }
             }
         } catch (IOException e) {
             
         }
     }
+    
+    private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
 }
