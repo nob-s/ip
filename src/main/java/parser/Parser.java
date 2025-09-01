@@ -42,7 +42,12 @@ public class Parser {
             e.g. event bbq /from 20-05-2025 0800 /to 20-05-2025 1800
         """;
     
-    /// if command exists, print stuff rtn true, else rtn false
+    /**
+     * Prints out proper output based on user input
+     *
+     * @param input Raw input of the user taken from Ui class.
+     * @throws UserInputException If user input doesn't fit format
+     **/
     public static void processCommand(String input) throws UserInputException {
         //Commands without args below
         if (Objects.equals(input.trim().toLowerCase(), "help")) {
