@@ -44,7 +44,6 @@ public class Parser {
     
     /// if command exists, print stuff rtn true, else rtn false
     public static void processCommand(String input) throws UserInputException {
-        input = input.trim();
         //Commands without args below
         if (Objects.equals(input.trim().toLowerCase(), "help")) {
             System.out.printf(COMMAND_LIST);
