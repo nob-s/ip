@@ -41,28 +41,23 @@ public class Parser {
             e.g. event bbq /from 20-05-2025 0800 /to 20-05-2025 1800
         """;
     /**
-     * Prints out proper output based on user input
-     *
+     * Returns proper output based on user input
      * @param input Raw input of the user taken from Ui class.
      * @throws UserInputException If user input doesn't fit format
      **/
-    public static void processCommand(String input) throws UserInputException {
+    public static String processCommand(String input) throws UserInputException {
+        String response = "";
         //Commands without args below
         if (Objects.equals(input.trim().toLowerCase(), "help")) {
-            System.out.printf(COMMAND_LIST);
-            return;
+            response += COMMAND_LIST;
         } else if (Objects.equals(input, "list")) {
-            TaskList.printTaskList();
-            return;
-        }
-        
-        //Commands with args below
-        if (checkSpecificCommand(input, "find")) {
+            response = TaskList.getTaskList();
+        } else if (checkSpecificCommand(input, "find")) {
             String msg = getMessageOnly(input, "find");
             if (msg.isEmpty()) {
                 throw new NoCommandArgumentException("mark");
             }
-            TaskList.printSelectiveTaskList(msg);
+            response = TaskList.getSelectiveTaskList(msg);
             
         } else if (checkSpecificCommand(input, "mark")) {
             String msg = getMessageOnly(input, "mark");
@@ -72,7 +67,7 @@ public class Parser {
             int n = Integer.parseInt(msg);
             
             TaskList.markTaskAt(n);
-            TaskList.printTaskList();
+            response = TaskList.getTaskList();
 
         } else if (checkSpecificCommand(input, "unmark")) {
             String msg = getMessageOnly(input, "unmark");
@@ -82,7 +77,7 @@ public class Parser {
             int n = Integer.parseInt(msg);
             
             TaskList.unmarkTaskAt(n);
-            TaskList.printTaskList();
+            response = TaskList.getTaskList();
 
         } else if (checkSpecificCommand(input, "delete")) {
             String msg = getMessageOnly(input, "delete");
@@ -93,11 +88,11 @@ public class Parser {
             
             Task toDelete = TaskList.deleteTaskAt(n);
             if (toDelete == null) {
-                System.out.println("YOUR LIST AIN'T THAT LONG BUDDY");
+                response = "YOUR LIST AIN'T THAT LONG BUDDY";
             } else {
-                System.out.printf("ok ITS GONE:\n Deleted: %s\n", toDelete);
+                response = String.format("ok ITS GONE:\n Deleted: %s\n", toDelete);
             }
-
+            
         } else if (checkSpecificCommand(input, "todo")) {
             String msg = getMessageOnly(input, "todo");
 
@@ -106,7 +101,7 @@ public class Parser {
                 throw new EmptyTaskException(task);
             }
             TaskList.addTask(task);
-            System.out.printf("OK THEN THERE!!! Added:\n %s", task);
+            response = String.format("OK THEN THERE!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "deadline")) {
             String msg = getMessageOnly(input, "deadline").split("/by")[0];
@@ -116,7 +111,7 @@ public class Parser {
                 throw new EmptyTaskException(task);
             }
             TaskList.addTask(task);
-            System.out.printf("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
+            response = String.format("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
 
         } else if (checkSpecificCommand(input, "event")) {
             String msg = getMessageOnly(input, "event").split("/from")[0];
@@ -126,12 +121,13 @@ public class Parser {
             if (msg.isEmpty()) {
                 throw new EmptyTaskException(task);
             }
-            System.out.printf("BE THERE OR ELSE!!!!! Added:\n %s", task);
+            response = String.format("BE THERE OR ELSE!!!!! Added:\n %s", task);
 
         } else {
             throw new NotACommandException();
         }
         TaskList.updateListToSave();
+        return response;
     }
 
     private static boolean checkSpecificCommand(String input, String command) {

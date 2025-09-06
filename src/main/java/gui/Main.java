@@ -9,9 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-
 import javafx.scene.image.Image;
+
 import main.LittleBabyMan;
+import tasks.TaskList;
 
 
 public class Main extends Application {
@@ -27,6 +28,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) {
+        TaskList.restoreListFromSave();
         //Setting up required components
 
         scrollPane = new ScrollPane();

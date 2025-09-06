@@ -6,31 +6,36 @@ import storage.Storage;
 
 public class TaskList {
     private static final ArrayList<Task> taskList = new ArrayList<>();
+
     /**
-     * Prints formatted list for list command
+     * @return String of formatted list
      */
-    public static void printTaskList() {
+    public static String getTaskList() {
         int len = taskList.size();
+        StringBuilder tl = new StringBuilder();
         for (int i = 0; i < len; i++) {
             Task t = taskList.get(i);
-            printTaskMessage(i + 1, t);
+            tl.append(getTaskMessage(i + 1, t));
         }
+        return tl.toString();
     }
 
     /**
-     * Prints formatted list which only contain tasks with contain substring "find
-     * @param find ArrayList of listNumbers to be printed
+     * @param find ArrayList of listNumbers to be returned
+     * @return String of formatted list which only contain tasks with contain substring "find
      */
-    public static void printSelectiveTaskList(String find) {
+    public static String getSelectiveTaskList(String find) {
         int idx = 1;
+        StringBuilder tl = new StringBuilder();
         for (Task t : taskList) {
             if (t.getDescription().contains(find)) {
-                printTaskMessage(idx++, t);
+                tl.append(getTaskMessage(idx++, t));
             }
         }
         if (idx == 1) {
-            System.out.printf("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
+            return String.format("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
         }
+        return tl.toString();
     }
     
     /**
@@ -103,7 +108,7 @@ public class TaskList {
         Storage.restoreTaskList(taskList);
     }
     
-    private static void printTaskMessage(int number, Task task) {
-        System.out.printf("%d. %s\n", number, task);
+    private static String getTaskMessage(int number, Task task) {
+        return String.format("%d. %s\n", number, task);
     }
 }

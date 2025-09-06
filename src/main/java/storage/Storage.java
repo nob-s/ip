@@ -73,7 +73,7 @@ public class Storage {
                     task = new EventTask(description, from, to);
                     break;
                 default:
-                    System.out.println("Hmmm something went wrong");
+                    continue;
                 } 
                 taskList.add(task);
                 if (mark && task != null) {
