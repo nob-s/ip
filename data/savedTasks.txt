@@ -1,1 +1,2 @@
-Deadline|||false|||finish project |||07-03-1919 0800
+Deadline|||false|||finish project|||07-03-1919 0800
+Todo|||false|||watch video

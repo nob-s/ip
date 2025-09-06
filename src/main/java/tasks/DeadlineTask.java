@@ -3,14 +3,19 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private LocalDateTime deadline;
-    
-    public DeadlineTask(String description, String deadline) {
+
+    /**
+     * Creates a task with a description and a deadlineString
+     * @param description String containing the description
+     * @param deadlineString String format of deadline
+     */
+    public DeadlineTask(String description, String deadlineString) {
         super(description);
         try {
-            this.deadline = LocalDateTime.parse(deadline, formatter);
-        } catch(DateTimeParseException e) {
+            this.deadline = LocalDateTime.parse(deadlineString, formatter);
+        } catch (DateTimeParseException e) {
             this.deadline = null;
         }
     }

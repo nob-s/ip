@@ -1,11 +1,9 @@
 package storage;
 
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +13,8 @@ import tasks.Task;
 import tasks.TodoTask;
 
 public class Storage {
+    private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
+    
     /**
      * Saves all tasks in taskList based on their .getSaveString() value into savedTasks.txt
      * 
@@ -33,7 +33,7 @@ public class Storage {
                 saveList.add(task.getSaveString());
             }
             Files.write(path, saveList);
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -59,7 +59,7 @@ public class Storage {
                 String description = split[2].trim();
                 Task task = null;
                 
-                switch (type){
+                switch (type) {
                 case "Todo":
                     task = new TodoTask(description);
                     break;
@@ -81,9 +81,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            
+            e.printStackTrace();
         }
     }
-    
-    private static final String SAVE_FILE_PATH = "./data/savedTasks.txt";
 }

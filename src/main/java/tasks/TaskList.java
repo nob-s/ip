@@ -1,11 +1,11 @@
 package tasks;
 
+import java.util.ArrayList;
 
 import storage.Storage;
 
-import java.util.ArrayList;
-
 public class TaskList {
+    private static final ArrayList<Task> taskList = new ArrayList<>();
     /**
      * Prints formatted list for list command
      */
@@ -34,7 +34,7 @@ public class TaskList {
     }
     
     /**
-     * 
+     * Gets task with respect to numbered list position
      * @param listNumber Number as reflected on the list upon "list" command
      * @return Task object at the list position
      */
@@ -106,6 +106,4 @@ public class TaskList {
     private static void printTaskMessage(int number, Task task) {
         System.out.printf("%d. %s\n", number, task);
     }
-
-    private static final ArrayList<Task> taskList = new ArrayList<>();
 }

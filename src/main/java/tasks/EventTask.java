@@ -3,20 +3,26 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class EventTask extends Task{
+public class EventTask extends Task {
     private LocalDateTime from;
 
     private LocalDateTime to;
 
-    public EventTask(String description, String from, String to) {
+    /**
+     * Creates a task with a description, from and to
+     * @param description String containing the description
+     * @param fromString String format of from
+     * @param toString String format of to
+     */
+    public EventTask(String description, String fromString, String toString) {
         super(description);
         try {
-            this.from = LocalDateTime.parse(from, formatter);
+            this.from = LocalDateTime.parse(fromString, formatter);
         } catch (DateTimeParseException e) {
             this.from = null;
         }
         try {
-            this.to = LocalDateTime.parse(to, formatter);
+            this.to = LocalDateTime.parse(toString, formatter);
         } catch (DateTimeParseException e) {
             this.to = null;
         }

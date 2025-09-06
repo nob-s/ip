@@ -2,7 +2,10 @@ package exceptions;
 
 import tasks.Task;
 
-public class EmptyTaskException extends UserInputException{
+/**
+ * Exception for when the task description for a task is empty
+ */
+public class EmptyTaskException extends UserInputException {
     private final String message;
 
     public EmptyTaskException(Task t) {
