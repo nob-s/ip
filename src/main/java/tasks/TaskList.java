@@ -40,6 +40,7 @@ public class TaskList {
     
     /**
      * Gets task with respect to numbered list position
+     * 
      * @param listNumber Number as reflected on the list upon "list" command
      * @return Task object at the list position
      */
@@ -53,6 +54,7 @@ public class TaskList {
 
     /**
      * Set isMarked of Task object at listNumber to true
+     * 
      * @param listNumber Task object at the list position
      */
     public static void markTaskAt(int listNumber) {
@@ -65,6 +67,7 @@ public class TaskList {
 
     /**
      * Set isMarked of Task object at listNumber to false
+     * 
      * @param listNumber Task object at the list position
      */
     public static void unmarkTaskAt(int listNumber) {
@@ -77,8 +80,9 @@ public class TaskList {
 
     /**
      * Delete the Task object at listNumber
+     * 
      * @param listNumber Task object at the list position
-     * @return
+     * @return Task object to be deleted
      */
     public static Task deleteTaskAt(int listNumber) {
         assert listNumber > 0 : "listNumber must be positive";

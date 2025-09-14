@@ -48,90 +48,119 @@ public class Parser {
     public static String processCommand(String input) throws UserInputException {
         String response = "";
         //Commands without args below
-        if (Objects.equals(input.trim().toLowerCase(), "help")) {
+        if (Objects.equals(input.trim().toLowerCase(), "bye")) {
+            response = "bye";
+        } else if (Objects.equals(input.trim().toLowerCase(), "help")) {
             response += COMMAND_LIST;
         } else if (Objects.equals(input, "list")) {
             response = TaskList.getTaskList();
         } else if (checkSpecificCommand(input, "find")) {
-            String msg = getMessageOnly(input, "find");
-            if (msg.isEmpty()) {
-                throw new NoCommandArgumentException("mark");
-            }
-            response = TaskList.getSelectiveTaskList(msg);
-            
+            response = handleFind(input); 
         } else if (checkSpecificCommand(input, "mark")) {
-            String msg = getMessageOnly(input, "mark");
-            if (msg.isEmpty()) {
-                throw new NoCommandArgumentException("mark");
-            }
-            int n = Integer.parseInt(msg);
-            
-            TaskList.markTaskAt(n);
-            response = TaskList.getTaskList();
-
+            response = handleMark(input);
         } else if (checkSpecificCommand(input, "unmark")) {
-            String msg = getMessageOnly(input, "unmark");
-            if (msg.isEmpty()) {
-                throw new NoCommandArgumentException("unmark");
-            }
-            int n = Integer.parseInt(msg);
-            assert n > 0 : "Task number must be positive";
-            
-            TaskList.unmarkTaskAt(n);
-            response = TaskList.getTaskList();
-
+            response = handleUnmark(input);
         } else if (checkSpecificCommand(input, "delete")) {
-            String msg = getMessageOnly(input, "delete");
-            if (msg.isEmpty()) {
-                throw new NoCommandArgumentException("delete");
-            }
-            int n = Integer.parseInt(msg);
-            assert n > 0 : "Task number must be positive";
-            
-            Task toDelete = TaskList.deleteTaskAt(n);
-            if (toDelete == null) {
-                response = "YOUR LIST AIN'T THAT LONG BUDDY";
-            } else {
-                response = String.format("ok ITS GONE:\n Deleted: %s\n", toDelete);
-            }
-            
+            response = handleDelete(input);
         } else if (checkSpecificCommand(input, "todo")) {
-            String msg = getMessageOnly(input, "todo");
-
-            Task task = new TodoTask(msg);
-            if (msg.isEmpty()) {
-                throw new EmptyTaskException(task);
-            }
-            TaskList.addTask(task);
-            response = String.format("OK THEN THERE!!! Added:\n %s", task);
-
+            response = handleTodo(input);
         } else if (checkSpecificCommand(input, "deadline")) {
-            String msg = getMessageOnly(input, "deadline").split("/by")[0];
-
-            Task task = new DeadlineTask(msg, getDeadlineTime(input));
-            if (msg.isEmpty()) {
-                throw new EmptyTaskException(task);
-            }
-            TaskList.addTask(task);
-            response = String.format("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
-
+            response = handleDeadline(input);
         } else if (checkSpecificCommand(input, "event")) {
-            String msg = getMessageOnly(input, "event").split("/from")[0];
-
-            Task task = new EventTask(msg, getFromTime(input), getToTime(input));
-            TaskList.addTask(task);
-            if (msg.isEmpty()) {
-                throw new EmptyTaskException(task);
-            }
-            response = String.format("BE THERE OR ELSE!!!!! Added:\n %s", task);
-
+            response = handleEvent(input);
         } else {
             throw new NotACommandException();
         }
         TaskList.updateListToSave();
         return response;
     }
+    
+    private static String handleFind(String input) 
+            throws NoCommandArgumentException, NoSpaceAfterCommandException {
+        String msg = getMessageOnly(input, "find");
+        if (msg.isEmpty()) {
+            throw new NoCommandArgumentException("find");
+        }
+        return TaskList.getSelectiveTaskList(msg);
+    }
 
+    private static String handleMark(String input) 
+            throws NoCommandArgumentException, NoSpaceAfterCommandException {
+        String msg = getMessageOnly(input, "mark");
+        if (msg.isEmpty()) {
+            throw new NoCommandArgumentException("mark");
+        }
+        int n = Integer.parseInt(msg);
+        TaskList.markTaskAt(n);
+        return TaskList.getTaskList();
+    }
+
+    private static String handleUnmark(String input) 
+            throws NoSpaceAfterCommandException, NoCommandArgumentException {
+        String msg = getMessageOnly(input, "unmark");
+        if (msg.isEmpty()) {
+            throw new NoCommandArgumentException("unmark");
+        }
+        int n = Integer.parseInt(msg);
+        assert n > 0 : "Task number must be positive";
+
+        TaskList.unmarkTaskAt(n);
+        return TaskList.getTaskList();
+    }
+
+    private static String handleDelete(String input)
+            throws NoSpaceAfterCommandException, NoCommandArgumentException {
+        String msg = getMessageOnly(input, "delete");
+        if (msg.isEmpty()) {
+            throw new NoCommandArgumentException("delete");
+        }
+        int n = Integer.parseInt(msg);
+        assert n > 0 : "Task number must be positive";
+
+        Task toDelete = TaskList.deleteTaskAt(n);
+        if (toDelete == null) {
+            return "YOUR LIST AIN'T THAT LONG BUDDY";
+        } else {
+            return String.format("ok ITS GONE:\n Deleted: %s\n", toDelete);
+        }
+    }
+
+    private static String handleTodo(String input)
+            throws EmptyTaskException, NoSpaceAfterCommandException {
+        String msg = getMessageOnly(input, "todo");
+
+        Task task = new TodoTask(msg);
+        if (msg.isEmpty()) {
+            throw new EmptyTaskException(task);
+        }
+        TaskList.addTask(task);
+        return String.format("OK THEN THERE!!! Added:\n %s", task);
+    }
+
+    private static String handleDeadline(String input)
+            throws EmptyTaskException, NoSpaceAfterCommandException {
+        String msg = getMessageOnly(input, "deadline").split("/by")[0];
+
+        Task task = new DeadlineTask(msg, getDeadlineTime(input));
+        if (msg.isEmpty()) {
+            throw new EmptyTaskException(task);
+        }
+        TaskList.addTask(task);
+        return String.format("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
+    }
+
+    private static String handleEvent(String input) 
+            throws NoSpaceAfterCommandException, EmptyTaskException {
+        String msg = getMessageOnly(input, "event").split("/from")[0];
+
+        Task task = new EventTask(msg, getFromTime(input), getToTime(input));
+        TaskList.addTask(task);
+        if (msg.isEmpty()) {
+            throw new EmptyTaskException(task);
+        }
+        return String.format("BE THERE OR ELSE!!!!! Added:\n %s", task);
+    }
+    
     private static boolean checkSpecificCommand(String input, String command) {
         int len = command.length();
         return input.length() >= len && Objects.equals(input.substring(0, len).toLowerCase(), command);
