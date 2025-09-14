@@ -75,6 +75,7 @@ public class Parser {
                 throw new NoCommandArgumentException("unmark");
             }
             int n = Integer.parseInt(msg);
+            assert n > 0 : "Task number must be positive";
             
             TaskList.unmarkTaskAt(n);
             response = TaskList.getTaskList();
@@ -85,6 +86,7 @@ public class Parser {
                 throw new NoCommandArgumentException("delete");
             }
             int n = Integer.parseInt(msg);
+            assert n > 0 : "Task number must be positive";
             
             Task toDelete = TaskList.deleteTaskAt(n);
             if (toDelete == null) {

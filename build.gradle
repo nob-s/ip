@@ -51,10 +51,12 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = "LittleBabyMan.jar"
+    archiveBaseName = "LittleBabyMan"
     archiveClassifier = null
 }
 
 run{
+    //enableAssertions = true
     standardInput = System.in
 }

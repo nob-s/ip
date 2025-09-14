@@ -44,6 +44,7 @@ public class TaskList {
      * @return Task object at the list position
      */
     public static Task getTaskAt(int listNumber) {
+        assert listNumber > 0 : "listNumber must be positive";
         if (listNumber > taskList.size()) {
             return null;
         }
@@ -55,6 +56,7 @@ public class TaskList {
      * @param listNumber Task object at the list position
      */
     public static void markTaskAt(int listNumber) {
+        assert listNumber > 0 : "listNumber must be positive";
         if (listNumber > taskList.size()) {
             return;
         }
@@ -66,6 +68,7 @@ public class TaskList {
      * @param listNumber Task object at the list position
      */
     public static void unmarkTaskAt(int listNumber) {
+        assert listNumber > 0 : "listNumber must be positive";
         if (listNumber > taskList.size()) {
             return;
         }
@@ -78,6 +81,7 @@ public class TaskList {
      * @return
      */
     public static Task deleteTaskAt(int listNumber) {
+        assert listNumber > 0 : "listNumber must be positive";
         if (listNumber > taskList.size()) {
             return null;
         }
