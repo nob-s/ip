@@ -1,10 +1,18 @@
 package tasks;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.text.similarity.JaroWinklerSimilarity;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import storage.Storage;
 
 public class TaskList {
+    private static final double SIMILARITY_THRESHOLD = 0.85;
+    private static final LevenshteinDistance ld = new LevenshteinDistance(2);
+
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -21,14 +29,16 @@ public class TaskList {
     }
 
     /**
-     * @param find ArrayList of listNumbers to be returned
-     * @return String of formatted list which only contain tasks with contain substring "find
+     * Returns a formatted list String with tasks that contain String find
+     *
+     * @param find String to match tasks to
+     * @return String of formatted Task list
      */
     public static String getSelectiveTaskList(String find) {
         int idx = 1;
         StringBuilder tl = new StringBuilder();
         for (Task t : taskList) {
-            if (t.getDescription().contains(find)) {
+            if (t.getDescription().toLowerCase().contains(find.toLowerCase().trim())) {
                 tl.append(getTaskMessage(idx++, t));
             }
         }
@@ -37,7 +47,70 @@ public class TaskList {
         }
         return tl.toString();
     }
-    
+
+    /**
+     * Returns a formatted list String with tasks that roughly match String find
+     *
+     * @param find String to match tasks to
+     * @return String of formatted Task list
+     */
+    public static String getFlexibleSelectiveTaskList(String find) {
+        List<Map.Entry<String, Double>> results = new ArrayList<>();
+        int idx = 1;
+        
+        //add tasks that are similar to find to results
+        for (Task t : taskList) {
+            double score = getStringSimilarityScore(t.getDescription(), find);
+            if (score > 0) {
+                results.add(new AbstractMap.SimpleEntry<>(getTaskMessage(idx, t), score));
+            }
+            idx++;
+        }
+        if (results.isEmpty()) {
+            return String.format("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
+        }
+        
+        //sort by similarity score
+        results.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
+        
+        //built selective list
+        StringBuilder tl = new StringBuilder();
+        for (Map.Entry<String, Double> entry : results) {
+            tl.append(entry.getKey());
+        }
+        return tl.toString();
+    }
+
+    /**
+     *
+     * @param description Task description to match
+     * @param find Search string to match
+     * @return Whether description and keywords similarity are above SIMILARITY_THRESHOLD
+     */
+    public static double getStringSimilarityScore(String description, String find) {
+        String[] keywords = find.toLowerCase().trim().split("\\s+");
+        String desc = description.toLowerCase();
+        double score = 0;
+
+        for (String key : keywords) {
+            if (desc.equals(key)) {
+                score += 1.0;        // exact match
+            } else if (desc.startsWith(key)) {
+                score += 0.8;        // strong
+            } else if (desc.contains(key)) {
+                score += 0.5;        // weaker
+            } else {
+                JaroWinklerSimilarity jw = new JaroWinklerSimilarity(); //fuzzy similarity
+                double sim = jw.apply(desc, key);
+                if (sim >= 0.8) {    // only count if "close enough"
+                    score += sim * 0.6; // scale so it doesn't outweigh exact matches
+                }
+            }
+        }
+
+        return score / keywords.length; // normalize
+    }
+
     /**
      * Gets task with respect to numbered list position
      * 
