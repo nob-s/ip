@@ -1,7 +1,11 @@
 package tasks;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.text.similarity.JaroWinklerSimilarity;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import storage.Storage;
 
@@ -51,15 +55,28 @@ public class TaskList {
      * @return String of formatted Task list
      */
     public static String getFlexibleSelectiveTaskList(String find) {
+        List<Map.Entry<String, Double>> results = new ArrayList<>();
         int idx = 1;
-        StringBuilder tl = new StringBuilder();
+        
+        //add tasks that are similar to find to results
         for (Task t : taskList) {
-            if (getStringSimilarity(t.getDescription(), find)) {
-                tl.append(getTaskMessage(idx++, t));
+            double score = getStringSimilarityScore(t.getDescription(), find);
+            if (score > 0) {
+                results.add(new AbstractMap.SimpleEntry<>(getTaskMessage(idx, t), score));
             }
+            idx++;
         }
-        if (idx == 1) {
+        if (results.isEmpty()) {
             return String.format("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
+        }
+        
+        //sort by similarity score
+        results.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
+        
+        //built selective list
+        StringBuilder tl = new StringBuilder();
+        for (Map.Entry<String, Double> entry : results) {
+            tl.append(entry.getKey());
         }
         return tl.toString();
     }
@@ -70,17 +87,28 @@ public class TaskList {
      * @param find Search string to match
      * @return Whether description and keywords similarity are above SIMILARITY_THRESHOLD
      */
-    public static boolean getStringSimilarity(String description, String find) {
+    public static double getStringSimilarityScore(String description, String find) {
         String[] keywords = find.toLowerCase().trim().split("\\s+");
         String desc = description.toLowerCase();
-        int score;
+        double score = 0;
 
-        for (String key: keywords) {
-            if (desc.contains(key)) {
-                return true;
+        for (String key : keywords) {
+            if (desc.equals(key)) {
+                score += 1.0;        // exact match
+            } else if (desc.startsWith(key)) {
+                score += 0.8;        // strong
+            } else if (desc.contains(key)) {
+                score += 0.5;        // weaker
+            } else {
+                JaroWinklerSimilarity jw = new JaroWinklerSimilarity(); //fuzzy similarity
+                double sim = jw.apply(desc, key);
+                if (sim >= 0.8) {    // only count if "close enough"
+                    score += sim * 0.6; // scale so it doesn't outweigh exact matches
+                }
             }
         }
-        return false;
+
+        return score / keywords.length; // normalize
     }
 
     /**
