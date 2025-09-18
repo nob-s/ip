@@ -81,7 +81,7 @@ public class Parser {
         if (msg.isEmpty()) {
             throw new NoCommandArgumentException("find");
         }
-        return TaskList.getSelectiveTaskList(msg);
+        return TaskList.getFlexibleSelectiveTaskList(msg);
     }
 
     private static String handleMark(String input) 

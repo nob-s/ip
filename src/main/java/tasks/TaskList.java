@@ -2,9 +2,13 @@ package tasks;
 
 import java.util.ArrayList;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import storage.Storage;
 
 public class TaskList {
+    private static final double SIMILARITY_THRESHOLD = 0.85;
+    private static final LevenshteinDistance ld = new LevenshteinDistance(2);
+
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -21,14 +25,16 @@ public class TaskList {
     }
 
     /**
-     * @param find ArrayList of listNumbers to be returned
-     * @return String of formatted list which only contain tasks with contain substring "find
+     * Returns a formatted list String with tasks that contain String find
+     *
+     * @param find String to match tasks to
+     * @return String of formatted Task list
      */
     public static String getSelectiveTaskList(String find) {
         int idx = 1;
         StringBuilder tl = new StringBuilder();
         for (Task t : taskList) {
-            if (t.getDescription().contains(find)) {
+            if (t.getDescription().toLowerCase().contains(find.toLowerCase().trim())) {
                 tl.append(getTaskMessage(idx++, t));
             }
         }
@@ -37,7 +43,46 @@ public class TaskList {
         }
         return tl.toString();
     }
-    
+
+    /**
+     * Returns a formatted list String with tasks that roughly match String find
+     *
+     * @param find String to match tasks to
+     * @return String of formatted Task list
+     */
+    public static String getFlexibleSelectiveTaskList(String find) {
+        int idx = 1;
+        StringBuilder tl = new StringBuilder();
+        for (Task t : taskList) {
+            if (getStringSimilarity(t.getDescription(), find)) {
+                tl.append(getTaskMessage(idx++, t));
+            }
+        }
+        if (idx == 1) {
+            return String.format("I DIDN'T FIND ANYTHING CONTAINING \"%s\"", find);
+        }
+        return tl.toString();
+    }
+
+    /**
+     *
+     * @param description Task description to match
+     * @param find Search string to match
+     * @return Whether description and keywords similarity are above SIMILARITY_THRESHOLD
+     */
+    public static boolean getStringSimilarity(String description, String find) {
+        String[] keywords = find.toLowerCase().trim().split("\\s+");
+        String desc = description.toLowerCase();
+        int score;
+
+        for (String key: keywords) {
+            if (desc.contains(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Gets task with respect to numbered list position
      * 
