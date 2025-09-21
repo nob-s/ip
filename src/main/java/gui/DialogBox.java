@@ -58,6 +58,29 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        setOrReplaceStyleProperty(db.dialog, "-fx-background-color", "#FF7043");
+        setOrReplaceStyleProperty(db.dialog, "-fx-text-fill", "FFFFFF");
+        
         return db;
     }
+    /**
+     * Sets or replaces a CSS style property for a given JavaFX node.
+     *
+     * @param node     The JavaFX node to modify.
+     * @param property The CSS property to set or replace (e.g., "-fx-background-color").
+     * @param value    The value to assign to the CSS property (e.g., "red").
+     */
+    public static void setOrReplaceStyleProperty(javafx.scene.Node node, String property, String value) {
+        String style = node.getStyle();
+        String regex = property + ":\\s*[^;]+;";
+        String newProp = property + ": " + value + ";";
+        if (style == null) style = "";
+        if (style.contains(property + ":")) {
+            style = style.replaceAll(regex, newProp);
+        } else {
+            style = style.trim() + " " + newProp;
+        }
+        node.setStyle(style);
+    }
+
 }
