@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.text.similarity.JaroWinklerSimilarity;
-import org.apache.commons.text.similarity.LevenshteinDistance;
 import storage.Storage;
 
 public class TaskList {
-    private static final double SIMILARITY_THRESHOLD = 0.85;
-    private static final LevenshteinDistance ld = new LevenshteinDistance(2);
-
+    private static final double EXACT_SIMILARITY_SCORE = 1.0;
+    private static final double STRONG_SIMILARITY_SCORE = 0.8;
+    private static final double WEAK_SIMILARITY_SCORE = 0.5;
+    private static final double FUZZY_SIMILARITY_SCORE = 0.6;
+    private static final double THRESHOLD_SIMILARITY_SCORE = 0.8;
     private static final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -91,19 +92,19 @@ public class TaskList {
         String[] keywords = find.toLowerCase().trim().split("\\s+");
         String desc = description.toLowerCase();
         double score = 0;
-
+        
         for (String key : keywords) {
             if (desc.equals(key)) {
-                score += 1.0;        // exact match
+                score += EXACT_SIMILARITY_SCORE;        // exact match
             } else if (desc.startsWith(key)) {
-                score += 0.8;        // strong
+                score += STRONG_SIMILARITY_SCORE;        // strong
             } else if (desc.contains(key)) {
-                score += 0.5;        // weaker
+                score += WEAK_SIMILARITY_SCORE;        // weaker
             } else {
                 JaroWinklerSimilarity jw = new JaroWinklerSimilarity(); //fuzzy similarity
                 double sim = jw.apply(desc, key);
-                if (sim >= 0.8) {    // only count if "close enough"
-                    score += sim * 0.6; // scale so it doesn't outweigh exact matches
+                if (sim >= THRESHOLD_SIMILARITY_SCORE) {    // only count if "close enough"
+                    score += sim * FUZZY_SIMILARITY_SCORE; // scale so it doesn't outweigh exact matches
                 }
             }
         }

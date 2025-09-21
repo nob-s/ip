@@ -3,7 +3,7 @@ package parser;
 import java.util.Objects;
 
 import exceptions.EmptyTaskException;
-import exceptions.NoCommandArgumentException;
+import exceptions.InvalidCommandArgumentException;
 import exceptions.NoSpaceAfterCommandException;
 import exceptions.NotACommandException;
 import exceptions.UserInputException;
@@ -76,43 +76,47 @@ public class Parser {
     }
     
     private static String handleFind(String input) 
-            throws NoCommandArgumentException, NoSpaceAfterCommandException {
+            throws InvalidCommandArgumentException, NoSpaceAfterCommandException {
         String msg = getMessageOnly(input, "find");
         if (msg.isEmpty()) {
-            throw new NoCommandArgumentException("find");
+            throw new InvalidCommandArgumentException("find");
         }
         return TaskList.getFlexibleSelectiveTaskList(msg);
     }
 
     private static String handleMark(String input) 
-            throws NoCommandArgumentException, NoSpaceAfterCommandException {
+            throws InvalidCommandArgumentException, NoSpaceAfterCommandException {
         String msg = getMessageOnly(input, "mark");
         if (msg.isEmpty()) {
-            throw new NoCommandArgumentException("mark");
+            throw new InvalidCommandArgumentException("mark");
         }
         int n = Integer.parseInt(msg);
+        if (n <= 0) {
+            throw new InvalidCommandArgumentException("mark", "List number must be positive!!!");
+        }
         TaskList.markTaskAt(n);
         return TaskList.getTaskList();
     }
 
     private static String handleUnmark(String input) 
-            throws NoSpaceAfterCommandException, NoCommandArgumentException {
+            throws NoSpaceAfterCommandException, InvalidCommandArgumentException {
         String msg = getMessageOnly(input, "unmark");
         if (msg.isEmpty()) {
-            throw new NoCommandArgumentException("unmark");
+            throw new InvalidCommandArgumentException("unmark");
         }
         int n = Integer.parseInt(msg);
-        assert n > 0 : "Task number must be positive";
-
+        if (n <= 0) {
+            throw new InvalidCommandArgumentException("unmark", "List number must be positive!!!");
+        }
         TaskList.unmarkTaskAt(n);
         return TaskList.getTaskList();
     }
 
     private static String handleDelete(String input)
-            throws NoSpaceAfterCommandException, NoCommandArgumentException {
+            throws NoSpaceAfterCommandException, InvalidCommandArgumentException {
         String msg = getMessageOnly(input, "delete");
         if (msg.isEmpty()) {
-            throw new NoCommandArgumentException("delete");
+            throw new InvalidCommandArgumentException("delete");
         }
         int n = Integer.parseInt(msg);
         assert n > 0 : "Task number must be positive";
