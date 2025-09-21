@@ -95,7 +95,7 @@ public class Parser {
             throw new InvalidCommandArgumentException("mark", "List number must be positive!!!");
         }
         TaskList.markTaskAt(n);
-        return TaskList.getTaskList();
+        return String.format("ok ITS MARKED AS DONE!!!! Done:\n %s. %s", n, TaskList.getTaskAt(n));
     }
 
     private static String handleUnmark(String input) 
@@ -109,7 +109,7 @@ public class Parser {
             throw new InvalidCommandArgumentException("unmark", "List number must be positive!!!");
         }
         TaskList.unmarkTaskAt(n);
-        return TaskList.getTaskList();
+        return String.format("WHY'D YOU UNMARK IT?!?! Not Done:\n %s. %s", n, TaskList.getTaskAt(n));
     }
 
     private static String handleDelete(String input)
@@ -119,13 +119,15 @@ public class Parser {
             throw new InvalidCommandArgumentException("delete");
         }
         int n = Integer.parseInt(msg);
-        assert n > 0 : "Task number must be positive";
-
+        if (n <= 0) {
+            throw new InvalidCommandArgumentException("delete", "List number must be positive!!!");
+        }
+        
         Task toDelete = TaskList.deleteTaskAt(n);
         if (toDelete == null) {
             return "YOUR LIST AIN'T THAT LONG BUDDY";
         } else {
-            return String.format("ok ITS GONE:\n Deleted: %s\n", toDelete);
+            return String.format("ok ITS GONE:\n %s. Deleted: %s", n, toDelete);
         }
     }
 
@@ -138,7 +140,7 @@ public class Parser {
             throw new EmptyTaskException(task);
         }
         TaskList.addTask(task);
-        return String.format("OK THEN THERE!!! Added:\n %s", task);
+        return String.format("OK THEN THERE!!! Added:\n %s. %s", TaskList.getSize(), task);
     }
 
     private static String handleDeadline(String input)
@@ -150,7 +152,7 @@ public class Parser {
             throw new EmptyTaskException(task);
         }
         TaskList.addTask(task);
-        return String.format("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s", task);
+        return String.format("YOU BETTER DO IT IN TIME!!!!!!! Added:\n %s. %s", TaskList.getSize(), task);
     }
 
     private static String handleEvent(String input) 
@@ -162,7 +164,7 @@ public class Parser {
         if (msg.isEmpty()) {
             throw new EmptyTaskException(task);
         }
-        return String.format("BE THERE OR ELSE!!!!! Added:\n %s", task);
+        return String.format("BE THERE OR ELSE!!!!! Added:\n %s. %s", TaskList.getSize(), task);
     }
     
     private static boolean checkSpecificCommand(String input, String command) {

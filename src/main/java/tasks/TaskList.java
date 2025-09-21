@@ -177,8 +177,16 @@ public class TaskList {
     }
 
     /**
+     * @return Size of taskList
+     */
+    public static int getSize() {
+        return taskList.size();
+    }
+    
+    /**
      * Writes new list to savedTasks.txt
      */
+    
     public static void updateListToSave() {
         Storage.saveTaskList(taskList);
     }
