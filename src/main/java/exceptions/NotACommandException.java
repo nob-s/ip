@@ -5,6 +5,6 @@ public class NotACommandException extends UserInputException {
 
     @Override
     public String toString() {
-        return "THIS AIN'T A COMMAND RAAAARGHGHH";
+        return "THIS AIN'T A COMMAND RAAAARGHGHH!!!!!! TYPE 'help' FOR A LIST OF COMMANDS";
     }
 }
