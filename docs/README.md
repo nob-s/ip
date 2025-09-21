@@ -1,6 +1,6 @@
 # LittleBabyMan User Guide
 
-// Product screenshot goes here
+![Product Screenshot](./Ui.png)
 
 LittleBabyMan is an easy-to-use tool for managing your tasks 
 and projects efficiently. With a user-friendly interface, 
